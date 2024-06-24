@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "async": "^3.2.5",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "net": "^1.0.2",
+    "node-rtsp-stream": "^0.0.9",
+    "ping": "^0.4.4"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
