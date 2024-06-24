@@ -185,7 +185,7 @@ scanNetwork((err, ips) => {
 
 app.use(
     cors({
-        origin: "http://localhost:3000",
+        origin: "http://localhost:3002",
         credentials: true,
     })
 );
@@ -197,7 +197,7 @@ app.get("/stream", (req, res) => {
         return res.status(400).json({ error: "ID de stream válido é necessário" });
     }
 
-    res.status(200).json({ url: `ws://127.0.0.1:${8999 + parseInt(streamId)}` });
+    res.status(200).json({ url: `ws://192.168.1.76:${8999 + parseInt(streamId)}` });
 });
 
 app.listen(port, () => {
