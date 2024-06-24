@@ -1,0 +1,41 @@
+name: Deploy Streaming Cam´s to Server via Tailscale VPN
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Tailscale
+      uses: tailscale/github-action@v2
+      with:
+        authkey: ${{ secrets.TS_AUTH_KEY }}
+        tags: tag:ci
+
+    - name: check netmap
+      run:
+        tailscale status
+
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Copy to Server
+      run: |
+        sudo apt-get install -y sshpass
+        
+        sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no henrique@hotel 'mkdir -p /home/henrique/web-henrique/rtps-cam-stream'
+        sshpass -p $SSH_PASSWORD scp -o StrictHostKeyChecking=no -r ./* henrique@hotel:/home/henrique/web-henrique/rtps-cam-stream
+        
+        sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no henrique@hotel '
+          cd /home/henrique/web-henrique/rtps-cam-stream &&
+          sh start.sh'
+          
+      shell: /usr/bin/bash -e {0}
+      env:
+        SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
