@@ -8,7 +8,6 @@ cd /home/henrique/web-henrique/rtps-cam-stream/server
 npm install
 
 # Gerenciar processos com pm2
-pm2 kill
 pm2 delete rtsp-cam-stream-server || true
 pm2 delete rtsp-cam-stream-client || true
 
