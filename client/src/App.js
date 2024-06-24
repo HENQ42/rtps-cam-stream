@@ -13,7 +13,7 @@ const StreamPlayer = () => {
 
   useEffect(() => {
     urls.forEach((url, index) => {
-      axios.get(`http://hotel:3002/stream?id=${index}`)
+      axios.get(`http://192.168.1.76:3002/stream?id=${index}`)
         .then(response => {
           let canvas = document.getElementById(`video-canvas-${index}`);
           new JSMpeg.Player(response.data.url, { canvas: canvas });
