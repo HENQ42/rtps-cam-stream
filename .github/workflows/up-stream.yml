@@ -1,4 +1,4 @@
-name: Deploy Streaming Cam´s to Server via Tailscale VPN
+name: Deploy Streaming Cams to Server via Tailscale VPN
 
 on:
   push:
@@ -32,9 +32,12 @@ jobs:
         sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no henrique@hotel 'mkdir -p /home/henrique/web-henrique/rtps-cam-stream'
         sshpass -p $SSH_PASSWORD scp -o StrictHostKeyChecking=no -r ./* henrique@hotel:/home/henrique/web-henrique/rtps-cam-stream
         
+        sshpass -p $SSH_PASSWORD scp -o StrictHostKeyChecking=no deploy.sh henrique@hotel:/home/henrique/web-henrique/rtps-cam-stream
+        
         sshpass -p $SSH_PASSWORD ssh -o StrictHostKeyChecking=no henrique@hotel '
           cd /home/henrique/web-henrique/rtps-cam-stream &&
-          sh start.sh'
+          chmod +x deploy.sh &&
+          ./deploy.sh'
           
       shell: /usr/bin/bash -e {0}
       env:
